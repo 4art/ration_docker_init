@@ -1,0 +1,22 @@
+version:  '2'
+services:
+  mysqldbserver:
+    image:  mysql
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_PASSWORD=root
+    - MYSQL_USER=user
+    - MYSQL_DATABASE=password
+    - MYSQL_ROOT_PASSWORD=root
+  springappserver:
+    build:
+      context: .
+      dockerfile: spring.dockerfile
+    ports:
+    - "8080:8080"
+    volumes:
+      - .:/vol/development
+    depends_on:
+      - mysqldbserver
+   
